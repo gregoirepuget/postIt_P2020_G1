@@ -12,6 +12,11 @@ $(document).ready(function(){
   else
   {
     listePostIt=JSON.parse(listePostIt);
+    for (var i=0; i< listePostIt.length; i++)
+    {
+      afficherPostIt(i);
+    }
+    
     console.log(listePostIt);
   }
   
@@ -43,6 +48,14 @@ $(document).ready(function(){
     content += '</div>';
 
     $("body").append(content);
+    
+    $(".postick").draggable({
+      cancel: ".editable",
+      stack: ".postick",
+      zIndex: 1000,
+      stop: function( event, ui ) {}
+      
+    });
   
   }
   
