@@ -1,5 +1,8 @@
 $(document).ready(function(){
   
+  //localStorage.removeItem('listePostItLocal');
+  
+  
   var listePostIt = localStorage.getItem('listePostItLocal');
   if(listePostIt == null)
   {
@@ -27,7 +30,24 @@ $(document).ready(function(){
     listePostIt.push(info);
     localStorage.setItem('listePostItLocal', JSON.stringify(listePostIt));
     
+    afficherPostIt(listePostIt.length-1);
+    
   });
+  
+  
+  function afficherPostIt(postIt_ID)
+  {
+    var content = '<div class="postick" data-key="'+postIt_ID+'" style="left:'+listePostIt[postIt_ID].posX+'px; top:'+listePostIt[postIt_ID].posY+'px; background:'+listePostIt[postIt_ID].couleur+';">';
+    content += '<div class="toolbar"><span class="delete">x</span></div>';
+    content += '<div contenteditable="true" class="editable">'+listePostIt[postIt_ID].content+'</div>';
+    content += '</div>';
+
+    $("body").append(content);
+  
+  }
+  
+  
+  
   
   function getTirage(limit)
   {
@@ -38,3 +58,11 @@ $(document).ready(function(){
   
   
 });
+
+
+
+
+
+
+
+
