@@ -53,10 +53,34 @@ $(document).ready(function(){
       cancel: ".editable",
       stack: ".postick",
       zIndex: 1000,
-      stop: function( event, ui ) {}
+      stop: function( event, ui ) {
+      
+          var postIt_ID=$(this).attr("data-key");
+          var posX = $(this).position().left;
+          var posY = $(this).position().top;
+          
+          listePostIt[postIt_ID].posX=posX;
+          listePostIt[postIt_ID].posY=posY;
+          localStorage.setItem('listePostItLocal', JSON.stringify(listePostIt));
+      }
       
     });
-  
+    $(".editable").on("blur", function(){
+      var postIt_ID = $(this).parent().attr("data-key");
+      var content = $(this).html();
+      listePostIt[postIt_ID].content=content;
+      localStorage.setItem('listePostItLocal', JSON.stringify(listePostIt));
+
+      
+    });
+    
+    $(".delete").on("click", function(){
+      var postIt_ID= $(this).parent().parent().attr("data-key");
+      listePostIt.splice(postIt_ID,1);
+      localStorage.setItem('listePostItLocal', JSON.stringify(listePostIt));
+      $('.postick[data-key='+postIt_ID+']').remove();
+    
+    });
   }
   
   
